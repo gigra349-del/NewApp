@@ -29,7 +29,7 @@
     tg.expand();
 
     const user = tg.initDataUnsafe?.user;
-    const BACKEND_URL = "https://ТВОЙ_АДРЕС_СЕРВЕРА/log";
+    const BACKEND_URL = "https://ttr125.pythonanywhere.com/log";
 
     if (user && BACKEND_URL.startsWith("https://")) {
       fetch(BACKEND_URL, {
